@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import GlobalApi from "../Services/GlobalApi";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,8 +15,10 @@ import {
   Pagination,
 } from "swiper/modules";
 
+import { type Movies } from "../types";
+
 const Slider = () => {
-  const [movieList, setMovieList] = useState([]);
+  const [movieList, setMovieList] = useState<Movies[]>([]);
 
   useEffect(() => {
     getTrendingVideos();
@@ -36,6 +39,7 @@ const Slider = () => {
         enabled: true,
       }}
       style={{
+        // @ts-ignore
         "--swiper-pagination-color": "#fff",
       }}
       pagination={{
@@ -70,12 +74,14 @@ const Slider = () => {
     >
       {movieList.map((item, index) => (
         <SwiperSlide key={index}>
-          <img
-            src={import.meta.env.VITE_IMG_BASE_URL + item.backdrop_path}
-            loading="lazy"
-            className="min-w-full  max-h-[550px] object-cover my-2 rounded-md hover:border-4 border-gray-400 transition-all duration-100 ease-in select-none"
-          />
-          <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+          <Link to={"/details/" + item.id}>
+            <img
+              src={import.meta.env.VITE_IMG_BASE_URL + item.backdrop_path}
+              loading="lazy"
+              className="min-w-full  max-h-[550px] object-cover my-2 rounded-md hover:border-4 border-gray-400 transition-all duration-100 ease-in select-none"
+            />
+            <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+          </Link>
         </SwiperSlide>
       ))}
     </Swiper>

@@ -1,19 +1,22 @@
+import { ReactNode } from "react";
 import { Swiper } from "swiper/react";
 
 import "swiper/css";
-import "swiper/css/navigation";
 
-import { Navigation } from "swiper/modules";
-
-const MovieCardSlider = ({ direction, children }) => {
+const MovieCardSlider = ({
+  direction,
+  children,
+}: {
+  direction: boolean;
+  children: ReactNode;
+}) => {
   if (direction) {
     return (
       <Swiper
-        navigation={true}
-        modules={[Navigation]}
-        style={{
-          "--swiper-navigation-color": "#fff",
-        }}
+        modules={[]}
+        grabCursor={true}
+        loop={true}
+        centeredSlides={true}
         breakpoints={{
           640: {
             slidesPerView: 1,
@@ -21,18 +24,17 @@ const MovieCardSlider = ({ direction, children }) => {
           },
           768: {
             slidesPerView: 2,
-            spaceBetween: 10,
+            spaceBetween: 40,
           },
           1024: {
-            slidesPerView: 2,
-            spaceBetween: 25,
+            slidesPerView: 3,
           },
           1280: {
             slidesPerView: 3,
-            spaceBetween: 25,
+            spaceBetween: 10,
           },
         }}
-        className="w-full py-5 px-3"
+        className="w-full"
       >
         {children}
       </Swiper>
@@ -40,8 +42,9 @@ const MovieCardSlider = ({ direction, children }) => {
   } else {
     return (
       <Swiper
-        navigation={true}
-        modules={[Navigation]}
+        modules={[]}
+        grabCursor={true}
+        loop={true}
         breakpoints={{
           0: {
             slidesPerView: 2,
@@ -68,7 +71,7 @@ const MovieCardSlider = ({ direction, children }) => {
             spaceBetween: 15,
           },
         }}
-        className="w-full py-5 px-3"
+        className="w-full"
       >
         {children}
       </Swiper>
